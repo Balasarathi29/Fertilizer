@@ -1,0 +1,760 @@
+/* ═══════════════════════════════════════════════════
+   Bhoomi Bloom — Premium Authentication Page Styles
+   ═══════════════════════════════════════════════════ */
+
+:root {
+  --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Brand colors — vibrant AgTech emerald */
+  --primary-color: #10B981;
+  --primary-hover: #059669;
+  --primary-light: #34D399;
+  --primary-glow: rgba(16, 185, 129, 0.18);
+  --primary-gradient: linear-gradient(135deg, #10B981 0%, #059669 100%);
+  --secondary-gradient: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+
+  /* Luxury gold accent */
+  --gold-accent: #C9A227;
+  --gold-light: #e6c96a;
+  --gold-glow: rgba(201, 162, 39, 0.22);
+  --gold-gradient: linear-gradient(135deg, #C9A227 0%, #e6c96a 100%);
+
+  /* Slate typography scale (Stripe/Linear-style) */
+  --slate-50: #F8FAFC;   /* primary headings (dark mode) */
+  --slate-400: #94A3B8;  /* secondary/supporting labels */
+  --slate-500: #64748B;  /* subtle helper text */
+
+  /* Glassmorphism — Light Mode */
+  --glass-bg: rgba(255, 255, 255, 0.72);
+  --glass-border: rgba(255, 255, 255, 0.5);
+  --glass-shadow: 0 8px 40px rgba(31, 38, 135, 0.08), 0 2px 8px rgba(0,0,0,0.04);
+  --glass-blur: blur(18px);
+
+  /* App backgrounds & text */
+  --bg-app: #f0faf3;
+  --text-primary: #1f2937;
+  --text-secondary: #4b5563;
+  --text-helper: #64748B;
+  --card-title: #111827;
+
+  /* Hero overlay */
+  --hero-overlay: linear-gradient(
+    160deg,
+    rgba(15, 56, 20, 0.90) 0%,
+    rgba(25, 74, 30, 0.88) 35%,
+    rgba(38, 100, 45, 0.80) 65%,
+    rgba(46, 125, 50, 0.70) 100%
+  );
+}
+
+/* ── Dark Mode ──────────────────────────────────────── */
+.dark-mode {
+  --primary-color: #34D399;
+  --primary-hover: #6EE7B7;
+  --primary-glow: rgba(52, 211, 153, 0.28);
+  --primary-gradient: linear-gradient(135deg, #059669 0%, #10B981 100%);
+
+  --glass-bg: rgba(15, 23, 42, 0.75);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-shadow: 0 8px 40px rgba(0, 0, 0, 0.45), 0 2px 8px rgba(0,0,0,0.3);
+  --glass-blur: blur(12px);
+
+  --bg-app: #0B1120;
+  --text-primary: #F8FAFC;
+  --text-secondary: #94A3B8;
+  --text-helper: #64748B;
+  --card-title: #F8FAFC;
+
+  --hero-overlay: linear-gradient(
+    160deg,
+    rgba(5, 20, 8, 0.92) 0%,
+    rgba(10, 35, 14, 0.90) 40%,
+    rgba(20, 60, 25, 0.85) 100%
+  );
+}
+
+/* ── Dark Mode: project-wide override layer ─────────────────────────────
+   Catches hardcoded light-mode inline styles (which beat normal CSS) so the
+   entire project adapts when dark mode is toggled — not just the navbar. */
+
+/* Dark headings & body text → light text */
+.dark-mode [style*="color: rgb(27, 46, 30)"],   /* #1B2E1E */
+.dark-mode [style*="color: rgb(22, 101, 52)"],  /* #166534 */
+.dark-mode [style*="color: rgb(51, 51, 51)"],   /* #333 */
+.dark-mode [style*="color: rgb(85, 85, 85)"],   /* #555 */
+.dark-mode [style*="color: rgb(102, 102, 102)"] /* #666 */
+{ color: rgba(255, 255, 255, 0.88) !important; }
+
+/* Muted gray text → soft light gray */
+.dark-mode [style*="color: rgb(136, 136, 136)"], /* #888 */
+.dark-mode [style*="color: rgb(170, 170, 170)"]  /* #aaa */
+{ color: rgba(255, 255, 255, 0.55) !important; }
+
+/* Light solid surfaces → dark glass */
+.dark-mode [style*="background: rgb(245, 245, 245)"], /* #f5f5f5 */
+.dark-mode [style*="background: rgb(249, 249, 249)"], /* #f9f9f9 */
+.dark-mode [style*="background: rgb(250, 250, 250)"], /* #fafafa */
+.dark-mode [style*="background: rgb(248, 250, 252)"], /* #f8fafc */
+.dark-mode [style*="background: rgb(240, 253, 244)"], /* #f0fdf4 */
+.dark-mode [style*="background: rgb(255, 255, 255)"], /* #fff */
+.dark-mode [style*="background: rgb(255, 241, 240)"], /* #fff1f0 */
+.dark-mode [style*="background: rgb(230, 244, 234)"], /* #e6f4ea */
+.dark-mode [style*="background: rgb(255, 252, 240)"], /* #fffcf0 */
+.dark-mode [style*="background: rgb(255, 251, 230)"], /* #fffbe6 */
+.dark-mode [style*="background: rgb(255, 247, 230)"], /* #fff7e6 */
+.dark-mode [style*="background: rgb(255, 248, 225)"], /* #fff8e1 */
+.dark-mode [style*="background: rgb(240, 240, 240)"], /* #f0f0f0 */
+.dark-mode [style*="background: rgb(224, 224, 224)"]  /* #e0e0e0 */
+{ background: rgba(255, 255, 255, 0.06) !important; }
+
+/* Light gradient surfaces → dark glass */
+.dark-mode [style*="linear-gradient(135deg, rgb(240, 253, 244)"],
+.dark-mode [style*="linear-gradient(135deg, rgb(255, 255, 255)"],
+.dark-mode [style*="linear-gradient(135deg, rgb(255, 252, 240)"]
+{ background: rgba(255, 255, 255, 0.06) !important; }
+
+/* Light borders → subtle light borders */
+.dark-mode [style*="solid rgb(224, 224, 224)"], /* #e0e0e0 */
+.dark-mode [style*="solid rgb(240, 240, 240)"], /* #f0f0f0 */
+.dark-mode [style*="solid rgb(220, 252, 215)"], /* #dcfce7 */
+.dark-mode [style*="solid rgb(187, 247, 208)"], /* #bbf7d0 */
+.dark-mode [style*="solid rgb(217, 217, 217)"], /* #d9d9d9 */
+.dark-mode [style*="solid rgb(230, 244, 234)"]  /* #e6f4ea */
+{ border-color: rgba(255, 255, 255, 0.12) !important; }
+
+/* ═══════════════════════════════════════════════════
+   Premium AgTech Design System — Light & Dark
+   ═══════════════════════════════════════════════════ */
+
+/* ── Cube Card: dimensional surface with layered elevation ── */
+.cube-card {
+  border-radius: 20px;
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.05),
+    0 4px 6px -1px rgba(0, 0, 0, 0.2),
+    0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cube-card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.05),
+    0 24px 48px -12px rgba(16, 185, 129, 0.28),
+    0 4px 6px -1px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode .cube-card {
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.05),
+    0 4px 6px -1px rgba(0, 0, 0, 0.45),
+    0 2px 4px -2px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .cube-card-hover:hover {
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.05),
+    0 24px 48px -12px rgba(16, 185, 129, 0.4),
+    0 4px 6px -1px rgba(0, 0, 0, 0.5);
+}
+
+/* ── Ambient emerald glow (hero sections & key cards) ── */
+.glow-emerald {
+  position: relative;
+}
+
+.glow-emerald::before {
+  content: '';
+  position: absolute;
+  inset: -48px;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.12) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* ── Glass navigation bar ── */
+.glass-nav {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* ── Form fields: uniform height, rounded-lg, emerald focus ring ── */
+.field-ring,
+.ant-input-affix-wrapper,
+.ant-input,
+.ant-select-selector,
+.ant-picker {
+  border-radius: 10px !important;
+  transition: border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.ant-input-affix-wrapper:focus-within,
+.ant-input:focus,
+.ant-select-focused .ant-select-selector,
+.ant-picker-focused {
+  border-color: var(--primary-color) !important;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25) !important;
+}
+
+/* ── Slider polish (emerald track) ── */
+.ant-slider-track {
+  background: var(--primary-color) !important;
+}
+
+.ant-slider-handle {
+  border-color: var(--primary-color) !important;
+}
+
+/* ── Smooth scrolling (whole project) ─────────── */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ── Slim transparent scrollbar (replaces the default right-side scrollbar) ── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(46, 125, 50, 0.25);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(46, 125, 50, 0.45);
+}
+.dark-mode ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+}
+.dark-mode ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(46, 125, 50, 0.25) transparent;
+}
+.dark-mode {
+  scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+}
+
+/* ── Reset ──────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-app);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  transition: background-color 0.45s ease, color 0.45s ease;
+}
+
+#root {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  border-inline: none !important;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  color: var(--card-title);
+}
+
+/* ── Glassmorphism Card ─────────────────────────────── */
+.glass-panel {
+  background: var(--glass-bg) !important;
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border) !important;
+  box-shadow: var(--glass-shadow) !important;
+  border-radius: 24px !important;
+  transition: background 0.45s ease, border 0.45s ease, box-shadow 0.45s ease;
+}
+
+/* ── Ant Design Input Overrides ─────────────────────── */
+.ant-input-affix-wrapper,
+.ant-input,
+.ant-select-selector {
+  border-radius: 10px !important;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease !important;
+}
+
+.ant-input-affix-wrapper:hover,
+.ant-input:hover,
+.ant-select-selector:hover {
+  border-color: var(--primary-color) !important;
+}
+
+.ant-input-affix-wrapper-focused,
+.ant-input:focus,
+.ant-select-focused .ant-select-selector {
+  border-color: var(--primary-color) !important;
+  box-shadow: 0 0 0 3px var(--primary-glow) !important;
+}
+
+/* ── Premium Gradient Button ────────────────────────── */
+.gradient-btn {
+  background: var(--primary-gradient) !important;
+  border: none !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  height: 48px !important;
+  border-radius: 10px !important;
+  font-size: 15px !important;
+  letter-spacing: 0.3px;
+  box-shadow: 0 4px 16px var(--primary-glow), 0 1px 3px rgba(0,0,0,0.12) !important;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, opacity 0.22s ease !important;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Shimmer sweep on hover */
+.gradient-btn::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+  transition: left 0.5s ease;
+}
+
+.gradient-btn:hover::after {
+  left: 160%;
+}
+
+.gradient-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px var(--primary-glow), 0 2px 6px rgba(0,0,0,0.14) !important;
+}
+
+.gradient-btn:active {
+  transform: translateY(0px);
+  box-shadow: 0 2px 8px var(--primary-glow) !important;
+}
+
+/* ── Social Auth Buttons ────────────────────────────── */
+.social-btn {
+  height: 46px !important;
+  border-radius: 10px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-weight: 500 !important;
+  font-size: 14px !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  background: rgba(255, 255, 255, 0.6) !important;
+  color: var(--text-primary) !important;
+  transition: all 0.28s ease !important;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06) !important;
+}
+
+.dark-mode .social-btn {
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+}
+
+.social-btn:hover {
+  background: rgba(46, 125, 50, 0.07) !important;
+  border-color: var(--primary-color) !important;
+  color: var(--primary-color) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(46, 125, 50, 0.12) !important;
+}
+
+/* ── Leaf Particle System ───────────────────────────── */
+.particle-container {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes leafFloat {
+  0%   { transform: translateY(108vh) translateX(0px) rotate(0deg);   opacity: 0; }
+  8%   { opacity: 0.65; }
+  92%  { opacity: 0.65; }
+  100% { transform: translateY(-8vh)  translateX(120px) rotate(380deg); opacity: 0; }
+}
+
+.leaf-particle {
+  position: absolute;
+  bottom: -60px;
+  pointer-events: none;
+  opacity: 0;
+  animation: leafFloat linear infinite;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+/* ── Layout: Auth Wrapper ───────────────────────────── */
+.auth-wrapper {
+  position: relative;
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  background-color: var(--bg-app);
+  overflow: hidden;
+}
+
+/* ── LEFT: Premium Hero Column ─────────────────────── */
+.hero-column {
+  flex: 1.2;
+  position: relative;
+  background:
+    var(--hero-overlay),
+    url('/src/assets/bhoomi_bloom_banner.jpg') no-repeat center 20%;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px 72px;
+  color: #ffffff;
+  overflow: hidden;
+  z-index: 2;
+}
+
+/* Cinematic warm glow at bottom of hero */
+.hero-column::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 38%;
+  background: linear-gradient(to top, rgba(201, 162, 39, 0.12) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Soft vignette edges */
+.hero-column::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 0% 50%,   rgba(0,0,0,0.28) 0%, transparent 60%),
+    radial-gradient(ellipse at 100% 0%,   rgba(0,0,0,0.18) 0%, transparent 55%),
+    radial-gradient(ellipse at 100% 100%, rgba(0,0,0,0.22) 0%, transparent 55%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Hero: Animated shimmer scan line ───────────────── */
+@keyframes scanLine {
+  0%   { transform: translateY(-100%); opacity: 0; }
+  10%  { opacity: 0.4; }
+  90%  { opacity: 0.4; }
+  100% { transform: translateY(220%);  opacity: 0; }
+}
+
+.hero-scan-line {
+  position: absolute;
+  left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(201,162,39,0.5), rgba(76,175,80,0.4), transparent);
+  pointer-events: none;
+  z-index: 1;
+  animation: scanLine 8s ease-in-out infinite;
+  top: 30%;
+}
+
+/* ── Hero: Animated gold orbs (depth glow) ──────────── */
+@keyframes orbPulse {
+  0%, 100% { opacity: 0.25; transform: scale(1); }
+  50%       { opacity: 0.45; transform: scale(1.15); }
+}
+
+.hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  animation: orbPulse ease-in-out infinite;
+}
+
+.hero-orb-1 {
+  width: 320px; height: 320px;
+  background: radial-gradient(circle, rgba(201,162,39,0.18) 0%, transparent 70%);
+  top: -80px; right: -80px;
+  animation-duration: 6s;
+}
+
+.hero-orb-2 {
+  width: 280px; height: 280px;
+  background: radial-gradient(circle, rgba(46,125,50,0.22) 0%, transparent 70%);
+  bottom: -60px; left: -60px;
+  animation-duration: 8s;
+  animation-delay: 2s;
+}
+
+.hero-orb-3 {
+  width: 160px; height: 160px;
+  background: radial-gradient(circle, rgba(201,162,39,0.14) 0%, transparent 70%);
+  top: 45%; right: 5%;
+  animation-duration: 5s;
+  animation-delay: 1s;
+}
+
+/* ── Hero: Gold corner frame decoration ─────────────── */
+.hero-corner-tl,
+.hero-corner-br {
+  position: absolute;
+  width: 64px; height: 64px;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.35;
+}
+
+.hero-corner-tl {
+  top: 28px; left: 28px;
+  border-top: 2px solid var(--gold-accent);
+  border-left: 2px solid var(--gold-accent);
+  border-radius: 4px 0 0 0;
+}
+
+.hero-corner-br {
+  bottom: 28px; right: 28px;
+  border-bottom: 2px solid var(--gold-accent);
+  border-right: 2px solid var(--gold-accent);
+  border-radius: 0 0 4px 0;
+}
+
+/* ── Hero: Floating stat badges ─────────────────────── */
+@keyframes badgeFloat {
+  0%, 100% { transform: translateY(0px) rotate(-1deg); }
+  50%       { transform: translateY(-8px) rotate(1deg); }
+}
+
+.hero-stat-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.10);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 10px 16px;
+  border-radius: 14px;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: var(--font-heading);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.1);
+  animation: badgeFloat ease-in-out infinite;
+  cursor: default;
+  user-select: none;
+}
+
+.hero-stat-badge .badge-value {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--gold-light);
+  line-height: 1;
+}
+
+.hero-stat-badge .badge-label {
+  font-size: 11px;
+  color: rgb(255, 255, 255);
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+/* ── RIGHT: Form Column ─────────────────────────────── */
+.form-column {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  position: relative;
+  z-index: 2;
+
+  /* Soft radial green-tinted bg on the form side */
+  background: radial-gradient(ellipse at 60% 40%, rgba(46,125,50,0.06) 0%, transparent 70%),
+              var(--bg-app);
+  transition: background 0.45s ease;
+}
+
+.dark-mode .form-column {
+  background: radial-gradient(ellipse at 60% 40%, rgba(46,125,50,0.10) 0%, transparent 70%),
+              var(--bg-app);
+}
+
+/* ── Brand Title ────────────────────────────────────── */
+.brand-title {
+  font-size: 26px;
+  font-weight: 800;
+  font-family: var(--font-heading);
+  background: linear-gradient(135deg, #2E7D32 0%, #4caf50 60%, #C9A227 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.3px;
+}
+
+.dark-mode .brand-title {
+  background: linear-gradient(135deg, #81c784 0%, #a5d6a7 60%, #e6c96a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Float Animation ────────────────────────────────── */
+@keyframes float {
+  0%   { transform: translateY(0px)   rotate(0deg); }
+  33%  { transform: translateY(-7px)  rotate(1deg); }
+  66%  { transform: translateY(-4px)  rotate(-0.5deg); }
+  100% { transform: translateY(0px)   rotate(0deg); }
+}
+
+.floating-icon {
+  animation: float 5s ease-in-out infinite;
+}
+
+/* ── Form View Transition ───────────────────────────── */
+.auth-card-container {
+  width: 100%;
+  max-width: 490px;
+}
+
+@keyframes formFadeIn {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.fade-enter-active {
+  animation: formFadeIn 0.4s ease forwards;
+}
+
+/* ── Divider text ───────────────────────────────────── */
+.ant-divider-inner-text {
+  font-size: 11px !important;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+/* ── Scrollbar (form column) ────────────────────────── */
+.form-column::-webkit-scrollbar { width: 4px; }
+.form-column::-webkit-scrollbar-track { background: transparent; }
+.form-column::-webkit-scrollbar-thumb { background: var(--primary-glow); border-radius: 4px; }
+
+/* ── Mobile & Tablet Responsive ─────────────────────── */
+@media (max-width: 1100px) {
+  .hero-column {
+    padding: 60px 48px;
+  }
+}
+
+@media (max-width: 992px) {
+  .auth-wrapper {
+    flex-direction: column;
+  }
+
+  .hero-column {
+    flex: none;
+    min-height: 340px;
+    max-height: 420px;
+    padding: 36px 28px;
+    text-align: center;
+    align-items: center;
+    justify-content: flex-end;
+    background-position: center 30%;
+  }
+
+  .hero-corner-tl,
+  .hero-corner-br {
+    width: 40px; height: 40px;
+  }
+
+  .form-column {
+    flex: 1;
+    padding: 28px 20px 40px;
+    align-items: flex-start;
+    overflow-y: auto;
+  }
+
+  .auth-card-container {
+    max-width: 100%;
+    margin-top: -48px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-column {
+    min-height: 280px;
+    padding: 28px 20px;
+  }
+
+  .auth-card-container {
+    margin-top: -36px;
+  }
+
+  .form-column {
+    padding: 20px 16px 32px;
+  }
+}
+
+/* ─── Bhoomi Bloom Signature Utilities & Animations ─── */
+.bhoomi-card {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  border-radius: 20px;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+}
+
+.bhoomi-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 36px rgba(46, 125, 50, 0.12);
+}
+
+@keyframes robotHover {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(2deg); }
+}
+
+.bhoomi-robot-float {
+  animation: robotHover 4s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(46, 125, 50, 0.4); }
+  50% { box-shadow: 0 0 0 12px rgba(46, 125, 50, 0); }
+}
+
+.pulse-glow {
+  animation: pulseGlow 2s infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .leaf-particle,
+  .bhoomi-robot-float,
+  .hero-scan-line,
+  .floating-icon,
+  .pulse-glow {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+

@@ -434,9 +434,13 @@ class SpinWheelReward(Base):
             "reward_type": self.reward_type,
             "val": self.value,
             "value": self.value,
+            "reward_value": self.value,
             "probability": self.probability,
+            "probability_weight": self.probability,
+            "weight": self.probability,
             "color": self.color,
-            "is_active": self.is_active
+            "is_active": self.is_active,
+            "status": "Active" if self.is_active else "Inactive"
         }
 
 
@@ -447,6 +451,7 @@ class SpinWheelLog(Base):
     email = Column(String(100), nullable=False, index=True)
     reward_code = Column(String(50), nullable=False)
     reward_label = Column(String(100), nullable=False)
+    is_test = Column(Boolean, default=False)
     spun_at = Column(DateTime(timezone=True), server_default=func.now())
 
     def to_dict(self):
@@ -455,9 +460,38 @@ class SpinWheelLog(Base):
             "email": self.email,
             "reward_code": self.reward_code,
             "reward_label": self.reward_label,
+            "is_test": self.is_test,
             "spun_at": str(self.spun_at) if self.spun_at else ""
         }
 
 
 UserSpinLog = SpinWheelLog
-UserIssuedReward = SpinWheelReward
+
+
+class UserIssuedReward(Base):
+    __tablename__ = "user_issued_rewards"
+
+    id = Column(Integer, primary_key=True, index=True)
+    email = Column(String(100), nullable=False, index=True)
+    code = Column(String(50), nullable=False)
+    label = Column(String(100), nullable=False)
+    reward_type = Column(String(50), nullable=False)
+    reward_value = Column(Float, nullable=False, default=0.0)
+    is_used = Column(Boolean, default=False)
+    expiry_date = Column(String(20), default="")
+    created_at = Column(String(30), default="")
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "email": self.email,
+            "code": self.code,
+            "label": self.label,
+            "type": self.reward_type,
+            "reward_type": self.reward_type,
+            "value": self.reward_value,
+            "reward_value": self.reward_value,
+            "is_used": self.is_used,
+            "expiry_date": self.expiry_date or "",
+            "created_at": self.created_at or ""
+        }

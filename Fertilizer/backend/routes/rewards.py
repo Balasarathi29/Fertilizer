@@ -74,7 +74,7 @@ async def get_spin_wheel_status(
     Returns user eligibility and wheel configuration for First-Order Spin & Win.
     """
     config = get_or_create_spin_config(db)
-    active_rewards = db.spin_wheel_rewards.find({"status": "Active"})
+    active_rewards = db.spin_wheel_rewards.find({"is_active": True})
     if not active_rewards:
         # Fallback initial rewards if empty
         active_rewards = [
@@ -208,7 +208,7 @@ async def spin_wheel(
         )
 
     # 3. Select active rewards
-    active_rewards = db.spin_wheel_rewards.find({"status": "Active"})
+    active_rewards = db.spin_wheel_rewards.find({"is_active": True})
     if not active_rewards:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -220,7 +220,7 @@ async def spin_wheel(
         r["index"] = idx
 
     # Calculate weighted selection
-    weights = [float(r.get("probability_weight", 10.0)) for r in active_rewards]
+    weights = [float(r.get("probability_weight") or r.get("probability") or 10.0) for r in active_rewards]
     selected_reward = random.choices(active_rewards, weights=weights, k=1)[0].copy()
 
     now = datetime.datetime.utcnow()
@@ -236,7 +236,7 @@ async def spin_wheel(
         "reward_type": selected_reward.get("reward_type") or selected_reward.get("type"),
         "reward_value": float(selected_reward.get("reward_value") or selected_reward.get("value") or 0.0),
         "is_test": False,
-        "spun_at": now.isoformat()
+        "spun_at": now
     }
     db.user_spin_logs.insert_one(spin_log_doc)
 
@@ -272,14 +272,14 @@ async def admin_test_spin(
     """
     Executes a test spin for Admin preview without consuming customer eligibility or issuing real coupons.
     """
-    active_rewards = db.spin_wheel_rewards.find({"status": "Active"})
+    active_rewards = db.spin_wheel_rewards.find({"is_active": True})
     if not active_rewards:
         raise HTTPException(status_code=400, detail="No active rewards configured.")
 
     for idx, r in enumerate(active_rewards):
         r["index"] = idx
 
-    weights = [float(r.get("probability_weight", 10.0)) for r in active_rewards]
+    weights = [float(r.get("probability_weight") or r.get("probability") or 10.0) for r in active_rewards]
     selected_reward = random.choices(active_rewards, weights=weights, k=1)[0].copy()
 
     now = datetime.datetime.utcnow()
@@ -291,9 +291,9 @@ async def admin_test_spin(
         "reward_label": selected_reward.get("label"),
         "reward_code": selected_reward.get("code"),
         "reward_type": selected_reward.get("reward_type") or selected_reward.get("type"),
-        "reward_value": float(selected_reward.get("reward_value") or 0.0),
-        "is_test": True,
-        "spun_at": now.isoformat()
+            "reward_value": float(selected_reward.get("reward_value") or selected_reward.get("value") or 0.0),
+            "is_test": True,
+        "spun_at": now
     })
 
     selected_reward["expiry_date"] = (now + datetime.timedelta(days=7)).strftime("%Y-%m-%d")
@@ -345,16 +345,14 @@ async def create_admin_reward(
 ):
     count = db.spin_wheel_rewards.count_documents({})
     doc = {
-        "index": count,
+        "reward_index": count,
         "label": payload.label,
         "code": payload.code.upper(),
         "reward_type": payload.reward_type,
-        "reward_value": payload.reward_value,
-        "probability_weight": payload.probability_weight,
+        "value": str(payload.reward_value),
+        "probability": payload.probability_weight,
         "color": payload.color or "#2E7D32",
-        "status": payload.status or "Active",
-        "start_date": payload.start_date or "",
-        "end_date": payload.end_date or ""
+        "is_active": (payload.status or "Active") == "Active"
     }
     res = db.spin_wheel_rewards.insert_one(doc)
     return {"message": "Reward created successfully!", "reward": res}
@@ -375,12 +373,10 @@ async def update_admin_reward(
         "label": payload.label,
         "code": payload.code.upper(),
         "reward_type": payload.reward_type,
-        "reward_value": payload.reward_value,
-        "probability_weight": payload.probability_weight,
+        "value": str(payload.reward_value),
+        "probability": payload.probability_weight,
         "color": payload.color or "#2E7D32",
-        "status": payload.status or "Active",
-        "start_date": payload.start_date or "",
-        "end_date": payload.end_date or ""
+        "is_active": (payload.status or "Active") == "Active"
     }
     db.spin_wheel_rewards.update_one({"id": reward_id}, {"$set": upd})
     return {"message": "Reward updated successfully!", "reward": {**existing, **upd}}

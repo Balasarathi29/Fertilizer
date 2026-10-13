@@ -15,7 +15,8 @@ import {
   CrownOutlined,
   EnvironmentOutlined,
   CarOutlined,
-  InboxOutlined
+  InboxOutlined,
+  DownOutlined
 } from '@ant-design/icons';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { AuthContext } from '../App';
@@ -136,9 +137,46 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
     { key: '/about', label: <Link to="/about">About Us</Link> },
     { key: '/crop-recommendation', label: <Link to="/crop-recommendation">🌾 Crop AI</Link> },
     { key: '/bhoomi-card', label: <Link to="/bhoomi-card" style={{ color: '#D4AF37', fontWeight: 600 }}>👑 Bhoomi Card</Link> },
-    { key: '/seeds', label: <Link to="/seeds">Seeds</Link> },
-    { key: '/machinery', label: <Link to="/machinery">Machinery</Link> },
-    { key: '/fertilizers', label: <Link to="/fertilizers">Fertilizers</Link> },
+  ];
+
+  const shopMenuItems = [
+    {
+      key: 'all-products',
+      icon: <ShopOutlined style={{ color: '#2E7D32' }} />,
+      label: 'All Products',
+      onClick: () => navigate('/products')
+    },
+    { type: 'divider' },
+    {
+      key: 'seeds',
+      icon: <span style={{ fontSize: 14 }}>🌱</span>,
+      label: 'Seeds',
+      onClick: () => navigate('/seeds')
+    },
+    {
+      key: 'machinery',
+      icon: <span style={{ fontSize: 14 }}>🚜</span>,
+      label: 'Machinery',
+      onClick: () => navigate('/machinery')
+    },
+    {
+      key: 'irrigation',
+      icon: <span style={{ fontSize: 14 }}>💧</span>,
+      label: 'Irrigation',
+      onClick: () => navigate('/irrigation')
+    },
+    {
+      key: 'tools',
+      icon: <span style={{ fontSize: 14 }}>⛏️</span>,
+      label: 'Tools',
+      onClick: () => navigate('/tools')
+    },
+    {
+      key: 'fertilizers',
+      icon: <span style={{ fontSize: 14 }}>🌿</span>,
+      label: 'Fertilizers',
+      onClick: () => navigate('/fertilizers')
+    },
   ];
 
   if (user?.role === 'admin') {
@@ -246,11 +284,34 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
           justifyContent: 'center',
           borderBottom: 'none',
           background: 'transparent',
-          fontSize: 16,
+          fontSize: 15,
           fontWeight: 500
         }}
         items={menuItems}
       />
+
+      <Dropdown
+        menu={{ items: shopMenuItems }}
+        placement="bottomCenter"
+        arrow={{ pointAtCenter: true }}
+        overlayStyle={{ minWidth: 220 }}
+      >
+        <Button
+          type="text"
+          icon={<ShopOutlined style={{ fontSize: 16 }} />}
+          style={{
+            marginRight: 8,
+            borderRadius: 20,
+            padding: '0 14px',
+            fontWeight: 600,
+            color: isDarkMode ? '#fff' : '#2E7D32',
+            background: isDarkMode ? 'rgba(76,175,80,0.12)' : 'rgba(46,125,50,0.08)',
+            border: `1px solid ${isDarkMode ? 'rgba(76,175,80,0.22)' : 'rgba(46,125,50,0.16)'}`
+          }}
+        >
+          Shop <DownOutlined style={{ fontSize: 12, marginLeft: 6 }} />
+        </Button>
+      </Dropdown>
 
       <Space size={12}>
         <Switch

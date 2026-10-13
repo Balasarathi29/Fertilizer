@@ -976,7 +976,9 @@ const Home = () => {
                   }}
                 >
                   <div style={{ fontSize: 16, marginBottom: 2 }}>{s.icon}</div>
-                  <div style={{ fontSize: 15, fontWeight: 800, lineHeight: 1.1 }}>
+                  <div
+                    style={{ fontSize: 15, fontWeight: 800, lineHeight: 1.1 }}
+                  >
                     {s.value}
                   </div>
                   <div
@@ -1005,7 +1007,9 @@ const Home = () => {
             <div
               style={{
                 display: "inline-block",
-                background: isDark ? "rgba(16,185,129,0.12)" : "rgba(16,185,129,0.10)",
+                background: isDark
+                  ? "rgba(16,185,129,0.12)"
+                  : "rgba(16,185,129,0.10)",
                 color: isDark ? "#34D399" : "#059669",
                 borderRadius: 20,
                 padding: "4px 16px",
@@ -1061,12 +1065,11 @@ const Home = () => {
                   cursor: "pointer",
                   transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
                   transform:
+                    hoveredCard === `cat-${i}` ? "translateY(-6px)" : "none",
+                  boxShadow:
                     hoveredCard === `cat-${i}`
-                      ? "translateY(-6px)"
-                      : "none",
-                  boxShadow: hoveredCard === `cat-${i}`
-                    ? `0 12px 24px -8px rgba(16,185,129,0.25), inset 0 1px 0 rgba(255,255,255,0.1)`
-                    : `0 4px 6px -1px rgba(0,0,0,0.2), 0 2px 4px -2px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.1)`,
+                      ? `0 12px 24px -8px rgba(16,185,129,0.25), inset 0 1px 0 rgba(255,255,255,0.1)`
+                      : `0 4px 6px -1px rgba(0,0,0,0.2), 0 2px 4px -2px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.1)`,
                   position: "relative",
                   overflow: "hidden",
                   backdropFilter: isDark ? "blur(12px)" : "none",
@@ -1645,22 +1648,22 @@ const Home = () => {
 
                     {product.isOrganic && (
                       <div
-                      style={{
-                        position: "absolute",
-                        top: 12,
-                        left: 12,
-                        background: "#10B981",
-                        color: "#fff",
-                        borderRadius: 9999,
-                        padding: "3px 10px",
-                        fontSize: 11,
-                        fontWeight: 700,
-                        zIndex: 2,
-                        boxShadow: "0 2px 8px rgba(16,185,129,0.35)",
-                      }}
-                    >
-                      100% Organic
-                    </div>
+                        style={{
+                          position: "absolute",
+                          top: 12,
+                          left: 12,
+                          background: "#10B981",
+                          color: "#fff",
+                          borderRadius: 9999,
+                          padding: "3px 10px",
+                          fontSize: 11,
+                          fontWeight: 700,
+                          zIndex: 2,
+                          boxShadow: "0 2px 8px rgba(16,185,129,0.35)",
+                        }}
+                      >
+                        100% Organic
+                      </div>
                     )}
 
                     <button
@@ -1672,7 +1675,9 @@ const Home = () => {
                         width: 36,
                         height: 36,
                         borderRadius: "50%",
-                        background: isDark ? "rgba(255,255,255,0.12)" : "rgba(255,255,255,0.85)",
+                        background: isDark
+                          ? "rgba(255,255,255,0.12)"
+                          : "rgba(255,255,255,0.85)",
                         border: "none",
                         cursor: "pointer",
                         display: "flex",
@@ -1680,7 +1685,9 @@ const Home = () => {
                         justifyContent: "center",
                         color: wishlist.includes(product.id)
                           ? "#ff4d6d"
-                          : isDark ? "#94A3B8" : "#999",
+                          : isDark
+                            ? "#94A3B8"
+                            : "#999",
                         fontSize: 16,
                         transition: "all 0.2s",
                         boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
